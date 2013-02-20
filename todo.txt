@@ -4,7 +4,10 @@
 
 20.02.2013
 
-Repository.
+*Explain what 'fig' is.
+*Name on rect.
+*List.
+*Repository.
 *changeScale, which multiplies.
 *setScale.
 *changeRotationRadians.

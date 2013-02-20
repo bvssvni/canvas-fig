@@ -41,7 +41,7 @@
 <textarea id="code" rows="30" cols="40" onkeyup="run();" onchange="run();">
 var fig = newFig("workarea");
 
-fig.addRect(-100, -100, 200, 200);
+fig.addRect("r", -100, -100, 200, 200);
 fig.changePosition(300, 200);
 fig.append();
 
@@ -50,11 +50,27 @@ fig.render();
 <textarea id="errors" cols="80" rows="5">
 </textarea>
 	
+<h2>What is 'Fig'?</h2>
+<p>
+Fig is a way to create 2D graphics for HTML5 with as little code as possible.<br />
+It uses almost identical code for both construction and modifying.</br >
+</p>
+<ol>
+<li>Add shapes, lists or groups</li>
+<li>Modify or set appearance</li>
+<li>Append or Cancel</li>
+</ol>
+<p>
+With lists or groups, you can apply changes to shapes that are already added.<br />
+In the 3rd step, you decide whether to add the objects or remove them.<br />
+Tools that modify objects call 'Cancel', while tools that construct call 'Append'.</br>
+</p>
+	
 <h3>Example: Border</h3>
 <textarea cols="80" rows="10">
 var fig = newFig("workarea");
 
-fig.addRect(100, 100, 200, 200);
+fig.addRect("r", 100, 100, 200, 200);
 fig.setFillTransparent();
 fig.setStrokeStyle("#0000FF");
 fig.setLineWidth(3);
@@ -62,13 +78,28 @@ fig.append();
 
 fig.render();
 </textarea>
-
-<h3>Example: Group</h3>
+	
+<h3>Example: List</h3>
 <textarea cols="80" rows="11">
 var fig = newFig("workarea");
 
-fig.addRect(100, 100, 200, 200);
-fig.addRect(310, 100, 200, 200);
+fig.addRect("r",-100, -100, 200, 200);
+fig.changePosition(300, 200);
+fig.append();
+
+fig.addList("rects", [0]);
+fig.setFillStyle("#FF0000");
+fig.cancel();
+
+fig.render();
+</textarea>
+
+<h3>Example: Group</h3>
+<textarea cols="80" rows="15">
+var fig = newFig("workarea");
+
+fig.addRect("a", 100, 100, 200, 200);
+fig.addRect("b", 310, 100, 200, 200);
 fig.append();
 
 fig.addGroup("mygroup", [0,2]);
@@ -77,13 +108,14 @@ fig.append();
 
 fig.render();
 </textarea>
+
 	
 <h3>Example: Red Squares</h3>
 <textarea cols="80" rows="10">
 var fig = newFig("workarea");
 
 for (var i = 0; i < 10; i++) {
-	fig.addRect(i*20+30, 30, 10, 10);
+	fig.addRect("r"+i, i*20+30, 30, 10, 10);
 }
 fig.setFillStyle("#FF0000");
 fig.append();
@@ -95,7 +127,7 @@ fig.render();
 <textarea cols="80" rows="10">
 var fig = newFig("workarea");
 
-fig.addRect(0, 0, 200, 200);
+fig.addRect("r", 0, 0, 200, 200);
 fig.setRotationDegrees(10);
 fig.append();
 

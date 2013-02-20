@@ -23,6 +23,7 @@ function newFig(id) {
 	var cursor = 0;
 	var type_rect = 1;
 	var type_group = 2;
+	var type_list = 3;
 	var arrs = [fill_styles,
 				strokeStyles,
 				line_widths,
@@ -61,13 +62,17 @@ function newFig(id) {
 		return ctx;
 	}
 	
-	fig.addRect = function(x, y, w, h) {
-		shapes.push({type: type_rect, x: x, y: y, w: w, h: h});
+	fig.addRect = function(name, x, y, w, h) {
+		shapes.push({type: type_rect, name: name, x: x, y: y, w: w, h: h});
 		return shapes.length - 1;
 	}
 	
 	fig.addGroup = function(name, gr) {
 		shapes.push({type: type_group, name: name, members: gr});
+		return shapes.length - 1;
+	}
+	fig.addList = function(name, list) {
+		shapes.push({type: type_list, name: name, items: list});
 		return shapes.length - 1;
 	}
 	
@@ -90,6 +95,18 @@ function newFig(id) {
 		}
 	}
 	
+	var setListVal = function(arr, shape, val) {
+		if (shape.type != type_list) {
+			return;
+		}
+		
+		var items = shape.items;
+		var n = items.length;
+		for (var i = 0; i < n; i++) {
+			arr[items[i]] = val;
+		}
+	}
+	
 	var setVal = function(arr, val) {
 		for (var i = cursor; i < shapes.length; i++) {
 			if (arr.length <= i) {
@@ -101,6 +118,7 @@ function newFig(id) {
 			// Propagate the changes to the group.
 			var shape = shapes[i];
 			setGroupVal(arr, shape, val);
+			setListVal(arr, shape, val);
 		}
 	}
 	
@@ -123,6 +141,18 @@ function newFig(id) {
 		}
 	}
 	
+	var listOperation = function(shape, op) {
+		if (shape.type != type_list) {
+			return;
+		}
+		
+		var items = shape.items;
+		var n = items.length;
+		for (var i = 0; i < n; i++) {
+			op(items[i]);
+		}
+	}
+	
 	var operation = function(op) {
 		for (var i = cursor; i < shapes.length; i++) {
 			op(i);
@@ -130,6 +160,7 @@ function newFig(id) {
 			// Propagate the changes to the group.
 			var shape = shapes[i];
 			groupOperation(shape, op);
+			listOperation(shape, op);
 		}
 	}
 	
