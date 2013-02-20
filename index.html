@@ -1,0 +1,106 @@
+<html>
+<head>
+<script src="fig.js">
+</script>
+<script>
+	function run() {
+		// Clear drawing before running code.
+		var workarea = document.getElementById("workarea");
+		workarea.getContext("2d").clearRect(0, 0, workarea.width, workarea.height);
+		
+		var code = document.getElementById("code").value;
+		var ev = function (){
+			var errors = document.getElementById("errors");
+			errors.value = "";
+			try {
+				eval(code);
+			} catch (e) {
+				// if (e instanceof SyntaxError) {
+					errors.value = e.message;
+				// }
+			}
+		}
+		setTimeout(ev, 0);
+	}
+	
+	function onLoad() {
+		run();
+	}
+	
+	document.addEventListener("load", onLoad, true);
+</script>
+<style>
+	canvas {
+		border: 1px solid;
+	}
+</style>
+</head>
+<body>
+<canvas id="workarea" width="600" height="400">
+</canvas>
+<textarea id="code" rows="30" cols="40" onkeyup="run();" onchange="run();">
+var fig = newFig("workarea");
+
+fig.addRect(-100, -100, 200, 200);
+fig.changePosition(300, 200);
+fig.append();
+
+fig.render();
+</textarea>
+<textarea id="errors" cols="80" rows="5">
+</textarea>
+	
+<h3>Example: Border</h3>
+<textarea cols="80" rows="10">
+var fig = newFig("workarea");
+
+fig.addRect(100, 100, 200, 200);
+fig.setFillTransparent();
+fig.setStrokeStyle("#0000FF");
+fig.setLineWidth(3);
+fig.append();
+
+fig.render();
+</textarea>
+
+<h3>Example: Group</h3>
+<textarea cols="80" rows="11">
+var fig = newFig("workarea");
+
+fig.addRect(100, 100, 200, 200);
+fig.addRect(310, 100, 200, 200);
+fig.append();
+
+fig.addGroup("mygroup", [0,2]);
+fig.setFillStyle("#00FF00");
+fig.append();
+
+fig.render();
+</textarea>
+	
+<h3>Example: Red Squares</h3>
+<textarea cols="80" rows="10">
+var fig = newFig("workarea");
+
+for (var i = 0; i < 10; i++) {
+	fig.addRect(i*20+30, 30, 10, 10);
+}
+fig.setFillStyle("#FF0000");
+fig.append();
+
+fig.render();
+</textarea>
+	
+<h3>Example: Set Rotation</h3>
+<textarea cols="80" rows="10">
+var fig = newFig("workarea");
+
+fig.addRect(0, 0, 200, 200);
+fig.setRotationDegrees(10);
+fig.append();
+
+fig.render();
+</textarea>
+	
+</body>
+</html>

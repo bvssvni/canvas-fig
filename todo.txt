@@ -1,0 +1,39 @@
+* Completed on same day.
++ Completed on later day.
+- Decided against on later day.
+
+20.02.2013
+
+Repository.
+*changeScale, which multiplies.
+*setScale.
+*changeRotationRadians.
+*Remove rotate.
+*Remove translate.
+*changeRotationDegrees.
+*changePosition.
+*Remove setRotation.
+*Rotation in radians.
+*Make rotation applied after position.
+*Position.
+*Move examples to same page.
+*Rotate.
+*setRotation.
+*Translate.
+*Get context method.
+*Propagate changes to groups within groups.
+*Cancel.
+*Propagate changes to group.
+*Group.
+*Visible.
+*Overwrite settings if not called 'apply'.
+*Simpler internal function for settings.
+*Copy settings from another shape.
+*Line width.
+*Transparent fill.
+*Stroke style.
+*Default style if not set.
+*Default translation if not set.
+*Set translation.
+*Set style.
+*Rectangle.
